@@ -19,14 +19,20 @@ class ATM{
     }
 
     boolean login() {
-
-        System.out.print("Enter account number: ");
+        try{
+            System.out.print("Enter account number: ");
         long enteredAccno = sc.nextLong();
 
         System.out.print("Enter PIN: ");
         int enteredPin = sc.nextInt();
 
         return enteredAccno == accno && enteredPin == pin;
+        }catch (InputMismatchException e){
+            System.out.println("invalid pin or account number use only digits.");
+            sc.nextLine();
+        }
+
+        
     }
 
 
@@ -55,8 +61,9 @@ class ATM{
             System.out.println(balance);
         }
     }
-
     void changePin(){
+    try{
+        
         System.out.println("enter your old pin: ");
         int enpin = sc.nextInt();
         if(enpin != pin){
@@ -75,7 +82,14 @@ class ATM{
             }
             
         }
+    
+    }catch(InputMismatchException e){
+        System.out.println("Invalid pin type use only digits.");
+         sc.nextLine();
+
     }
+}
+    
 
     void exit() {
         System.out.println("Thank you for using the ATM!");
