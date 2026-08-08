@@ -64,8 +64,16 @@ class ATM{
         }else{
             System.out.println("enter your new pin:");
             int cpin = sc.nextInt();
-            pin = cpin;
-            System.out.println("pin changed");
+            String s = String.valueOf(cpin);
+            if(s.length() != 4){
+                System.out.println("pin can only have 4 digits");
+
+            }else{
+                pin = cpin;
+                System.out.println("pin changed");
+
+            }
+            
         }
     }
 
