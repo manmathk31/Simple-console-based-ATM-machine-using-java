@@ -1,6 +1,6 @@
 import java.util.*;
 
-class ATM{
+class ATM {
     Scanner sc = new Scanner(System.in);
 
     int accno = 123456;
@@ -19,82 +19,98 @@ class ATM{
     }
 
     boolean login() {
-        try{
+        try {
             System.out.print("Enter account number: ");
-        long enteredAccno = sc.nextLong();
+            long enteredAccno = sc.nextLong();
 
-        System.out.print("Enter PIN: ");
-        int enteredPin = sc.nextInt();
+            System.out.print("Enter PIN: ");
+            int enteredPin = sc.nextInt();
 
-        return enteredAccno == accno && enteredPin == pin;
-        }catch (InputMismatchException e){
+            return enteredAccno == accno && enteredPin == pin;
+
+        } catch (InputMismatchException e) {
             System.out.println("invalid pin or account number use only digits.");
             sc.nextLine();
+            return false;
         }
 
-        
     }
 
-
-    void checkBalance(){
+    void checkBalance() {
         System.out.println("your balance is: ");
         System.out.println(balance);
     }
 
-    void deposit(){
+    void deposit() {
         System.out.println("enter the amount: ");
         int amt = sc.nextInt();
         balance = balance + amt;
         System.out.println("new balance: ");
         System.out.println(balance);
     }
-    void withdraw(){
-        System.out.println("your current balance:");
-        System.out.println(balance);
-        System.out.println("enter the amount to withdraw:");
-        int withamt = sc.nextInt();
-        if((balance - withamt) < 0){
-            System.out.println("insufficient baance..");
-        }else{
-            balance = balance - withamt;
-            System.out.println("new balance: ");
-            System.out.println(balance);
-        }
-    }
-    void changePin(){
-    try{
-        
-        System.out.println("enter your old pin: ");
-        int enpin = sc.nextInt();
-        if(enpin != pin){
-            System.out.println("invalid pin");
-        }else{
-            System.out.println("enter your new pin:");
-            int cpin = sc.nextInt();
-            String s = String.valueOf(cpin);
-            if(s.length() != 4){
-                System.out.println("pin can only have 4 digits");
 
-            }else{
-                pin = cpin;
-                System.out.println("pin changed");
+    void withdraw() {
+
+        try {
+            System.out.println("your current balance:");
+
+            System.out.println(balance);
+
+            System.out.println("enter the amount to withdraw:");
+
+            int withamt = sc.nextInt();
+            if (withamt <= 1) {
+
+                System.out.println("invalid amount");
+                login();
+            }
+
+            if ((balance - withamt) < 0) {
+                System.out.println("insufficient baance..");
+            } else {
+                balance = balance - withamt;
+                System.out.println("new balance: ");
+                System.out.println(balance);
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("use only positive digits");
+            sc.nextLine();
+        }
+
+    }
+
+    void changePin() {
+        try {
+
+            System.out.println("enter your old pin: ");
+            int enpin = sc.nextInt();
+            if (enpin != pin) {
+                System.out.println("invalid pin");
+            } else {
+                System.out.println("enter your new pin:");
+                int cpin = sc.nextInt();
+                String s = String.valueOf(cpin);
+                if (s.length() != 4) {
+                    System.out.println("pin can only have 4 digits");
+
+                } else {
+                    pin = cpin;
+                    System.out.println("pin changed");
+
+                }
 
             }
-            
-        }
-    
-    }catch(InputMismatchException e){
-        System.out.println("Invalid pin type use only digits.");
-         sc.nextLine();
 
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid pin type use only digits.");
+            sc.nextLine();
+
+        }
     }
-}
-    
 
     void exit() {
         System.out.println("Thank you for using the ATM!");
     }
-
 
     void menu() {
 
@@ -139,14 +155,11 @@ class ATM{
             }
         }
 
-
-            
-        
     }
-    
+
 }
 
-public class Caller{
+public class Caller {
     public static void main(String[] args) {
         ATM a = new ATM();
         a.start();
