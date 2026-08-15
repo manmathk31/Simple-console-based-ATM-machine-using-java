@@ -21,15 +21,19 @@ class ATM {
     boolean login() {
         try {
             System.out.print("Enter account number: ");
+
             long enteredAccno = sc.nextLong();
 
             System.out.print("Enter PIN: ");
+
             int enteredPin = sc.nextInt();
 
             return enteredAccno == accno && enteredPin == pin;
 
         } catch (InputMismatchException e) {
+
             System.out.println("invalid pin or account number use only digits.");
+
             sc.nextLine();
             return false;
         }
@@ -37,16 +41,33 @@ class ATM {
     }
 
     void checkBalance() {
+
         System.out.println("your balance is: ");
+
         System.out.println(balance);
     }
 
     void deposit() {
-        System.out.println("enter the amount: ");
-        int amt = sc.nextInt();
-        balance = balance + amt;
-        System.out.println("new balance: ");
-        System.out.println(balance);
+
+        try {
+            System.out.println("enter the amount: ");
+
+            int amt = sc.nextInt();
+            if (amt < 0) {
+                System.out.println("Invalid deposit amountamount should be greater than 0");
+                return;
+            }
+
+            balance = balance + amt;
+
+            System.out.println("new balance: ");
+
+            System.out.println(balance);
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid deposit amount enter ony digits");
+            sc.nextLine();
+        }
+
     }
 
     void withdraw() {
@@ -62,18 +83,27 @@ class ATM {
             if (withamt <= 1) {
 
                 System.out.println("invalid amount");
-                login();
+                return;
             }
 
             if ((balance - withamt) < 0) {
+
                 System.out.println("insufficient baance..");
+
             } else {
+
                 balance = balance - withamt;
+
                 System.out.println("new balance: ");
+
                 System.out.println(balance);
+
             }
+
         } catch (InputMismatchException e) {
+
             System.out.println("use only positive digits");
+
             sc.nextLine();
         }
 
@@ -126,7 +156,11 @@ class ATM {
             System.out.println("5. Exit");
 
             System.out.print("Enter your choice: ");
-            int choice = sc.nextInt();
+            
+            try{
+                int choice = sc.nextInt();
+            
+            
 
             switch (choice) {
 
@@ -152,7 +186,11 @@ class ATM {
 
                 default:
                     System.out.println("Invalid choice");
+            }}catch(InputMismatchException e){
+                System.out.println("invalid choice");
+                sc.nextLine();
             }
+
         }
 
     }
